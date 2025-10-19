@@ -92,23 +92,25 @@
     // 3. Email links will come here, we'll redirect to Figma.site with tokens
     // ========================================================================
 
-    const debug = document.getElementById('debug');
-    const FIGMA_SITE_URL = 'https://electrician-exam-5640.figma.site';
-    
-    function log(message, type = 'info') {
-      console.log(message);
-      const p = document.createElement('p');
-      p.textContent = message;
-      if (type === 'error') p.className = 'error';
-      if (type === 'success') p.className = 'success';
-      if (type === 'warning') p.className = 'warning';
-      debug.appendChild(p);
+    // Wrap in IIFE to allow return statements
+    (function() {
+      const debug = document.getElementById('debug');
+      const FIGMA_SITE_URL = 'https://electrician-exam-5640.figma.site';
       
-      // Auto-scroll to bottom
-      debug.scrollTop = debug.scrollHeight;
-    }
+      function log(message, type = 'info') {
+        console.log(message);
+        const p = document.createElement('p');
+        p.textContent = message;
+        if (type === 'error') p.className = 'error';
+        if (type === 'success') p.className = 'success';
+        if (type === 'warning') p.className = 'warning';
+        debug.appendChild(p);
+        
+        // Auto-scroll to bottom
+        debug.scrollTop = debug.scrollHeight;
+      }
 
-    try {
+      try {
       log('🔄 Auth Redirect Handler - v1.0', 'success');
       log('📍 Current URL: ' + window.location.href);
       log('🎯 Target site: ' + FIGMA_SITE_URL);
@@ -265,6 +267,7 @@
         window.location.href = FIGMA_SITE_URL;
       }, 5000);
     }
+    })(); // End IIFE
   </script>
 </body>
 </html>
